@@ -55,7 +55,6 @@ namespace Samples.GeneratePDF
             table.SetHorizontalAlignment(HorizontalAlignment.LEFT);
             table.SetMarginTop(10f);
             table.SetMarginBottom(25f);
-            //Title of SPWeb
             string headerTitle = string.Format("Test Header Title {0}", DateTime.Today);
             //Heading
             Cell cellTitle = new Cell().Add(new Paragraph(headerTitle).AddStyle(titleStyle));
