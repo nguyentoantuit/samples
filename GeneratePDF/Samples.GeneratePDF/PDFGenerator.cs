@@ -55,7 +55,7 @@ namespace Samples.GeneratePDF
             table.SetHorizontalAlignment(HorizontalAlignment.LEFT);
             table.SetMarginTop(10f);
             table.SetMarginBottom(25f);
-            string headerTitle = string.Format("Test Header Title {0}", DateTime.Today);
+            string headerTitle = string.Format("Test Header Title {0}", DateTime.Now);
             //Heading
             Cell cellTitle = new Cell().Add(new Paragraph(headerTitle).AddStyle(titleStyle));
             cellTitle.SetBorder(Border.NO_BORDER);
