@@ -1,0 +1,5 @@
+D:\GitHub\Samples\GeneralCode\Clone\Clone\obj\Debug\Clone.csprojResolveAssemblyReference.cache
+D:\GitHub\Samples\GeneralCode\Clone\Clone\bin\Debug\Clone.dll
+D:\GitHub\Samples\GeneralCode\Clone\Clone\bin\Debug\Clone.pdb
+D:\GitHub\Samples\GeneralCode\Clone\Clone\obj\Debug\Clone.dll
+D:\GitHub\Samples\GeneralCode\Clone\Clone\obj\Debug\Clone.pdb

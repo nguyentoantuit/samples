@@ -1,0 +1,8 @@
+D:\GitHub\Samples\GeneralCode\Clone\CloneTest\bin\Debug\CloneTest.dll
+D:\GitHub\Samples\GeneralCode\Clone\CloneTest\bin\Debug\CloneTest.pdb
+D:\GitHub\Samples\GeneralCode\Clone\CloneTest\bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll
+D:\GitHub\Samples\GeneralCode\Clone\CloneTest\obj\Debug\CloneTest.csprojResolveAssemblyReference.cache
+D:\GitHub\Samples\GeneralCode\Clone\CloneTest\obj\Debug\CloneTest.dll
+D:\GitHub\Samples\GeneralCode\Clone\CloneTest\obj\Debug\CloneTest.pdb
+D:\GitHub\Samples\GeneralCode\Clone\CloneTest\bin\Debug\Clone.dll
+D:\GitHub\Samples\GeneralCode\Clone\CloneTest\bin\Debug\Clone.pdb
