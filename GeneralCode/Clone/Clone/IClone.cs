@@ -1,6 +1,6 @@
 ﻿namespace Clone
 {
-    interface IClone<T>
+    public interface IClone<T>
     {
         T FullClone();
         T ShallowClone();

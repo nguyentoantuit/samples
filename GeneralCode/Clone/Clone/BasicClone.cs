@@ -1,6 +1,7 @@
-﻿using System;
+﻿using Clone.Extensions;
+using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace Clone
 {
@@ -16,12 +17,29 @@ namespace Clone
             foreach (var propertyInfo in type.GetProperties())
             {
                 var value = propertyInfo.GetValue(this);
-                if (IsIListType(value.GetType()))
+                if (value.GetType().IsIListOfIClone())
                 {
-                    IList<BasicClone<T>> test = value as IList<BasicClone<T>>;
-                    var newValue = ((IList<BasicClone<T>>)value).Select(x => x.FullClone());
-                    propertyInfo.SetValue(newObj, newValue, null);
+                    var listValue = value as IList;
+                    if (listValue.Count > 0)
+                    {
+                        Type d1 = typeof(List<>);
 
+                        Type[] typeArgs = { listValue[0].GetType() };
+
+                        Type makeme = d1.MakeGenericType(typeArgs);
+
+                        IList destList = Activator.CreateInstance(makeme) as IList;
+
+                        foreach (var ite in listValue)
+                        {
+                            var ICloneType = ite.GetType();
+                            var method = ICloneType.GetMethod("FullClone");
+                            var test = method.Invoke(ite, null);
+                            destList.Add(test);
+                        }
+
+                        propertyInfo.SetValue(newObj, destList, null);
+                    }
                 }
                 else
                 {
@@ -50,11 +68,6 @@ namespace Clone
             {
                 throw new ArgumentException("Type " + GetType() + " does not implement interface " + typeof(T));
             }
-        }
-
-        private static bool IsIListType(Type type)
-        {
-            return type.IsGenericType && type.GetInterfaces().Any(x => x == typeof(IList<BasicClone<T>>));
         }
     }
 }
