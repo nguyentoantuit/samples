@@ -1,7 +1,7 @@
 ﻿using Clone.Extensions;
+using Clone.Helpers;
 using System;
 using System.Collections;
-using System.Collections.Generic;
 
 namespace Clone
 {
@@ -17,32 +17,39 @@ namespace Clone
             foreach (var propertyInfo in type.GetProperties())
             {
                 var value = propertyInfo.GetValue(this);
-                if (value.GetType().IsIListOfIClone())
+                if (value.GetType().IsIListType())
                 {
-                    var listValue = value as IList;
-                    if (listValue.Count > 0)
+                    if (value.GetType().IsIListOfIClone())
                     {
-                        Type d1 = typeof(List<>);
-
-                        Type[] typeArgs = { listValue[0].GetType() };
-
-                        Type makeme = d1.MakeGenericType(typeArgs);
-
-                        IList destList = Activator.CreateInstance(makeme) as IList;
-
-                        foreach (var ite in listValue)
+                        IList destList;
+                        var listValue = value as IList;
+                        if (listValue.Count > 0)
                         {
-                            var ICloneType = ite.GetType();
-                            var method = ICloneType.GetMethod("FullClone");
-                            var test = method.Invoke(ite, null);
-                            destList.Add(test);
-                        }
+                            destList = CommonHelper.CreateListFromType(listValue[0].GetType());
+                            foreach (var ite in listValue)
+                            {
+                                var ICloneType = ite.GetType();
+                                var method = ICloneType.GetMethod("FullClone");
+                                var test = method.Invoke(ite, null);
+                                destList.Add(test);
+                            }
 
-                        propertyInfo.SetValue(newObj, destList, null);
+                            propertyInfo.SetValue(newObj, destList, null);
+                        }
+                        else
+                        {
+                            // Set empty List
+                        }
                     }
+                    else
+                    {
+                        // Process with normal list
+                    }
+
                 }
                 else
                 {
+
                     propertyInfo.SetValue(newObj, value, null);
                 }
             }
