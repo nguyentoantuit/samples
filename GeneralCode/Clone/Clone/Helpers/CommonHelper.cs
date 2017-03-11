@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Clone.Helpers
 {
-    public class CommonHelper
+    public static class CommonHelper
     {
         public static IList CreateListFromType(Type type)
         {
@@ -13,6 +13,11 @@ namespace Clone.Helpers
             Type makeme = listType.MakeGenericType(typeArgs);
 
             return Activator.CreateInstance(makeme) as IList;
+        }
+
+        public static bool CheckType<T>(T obj, Type type)
+        {
+            return obj.GetType() == type;
         }
     }
 }
