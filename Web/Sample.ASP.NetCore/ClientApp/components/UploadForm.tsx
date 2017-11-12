@@ -48,7 +48,7 @@ class UploadForm extends React.Component<UploadFormProps, UploadFormState> {
                 <div className="container">
                     <div className="row">
                         <div className="col col-sm-12 col-md-12 col-lg-12">
-                            <label htmlFor="usr">File:</label>
+                            <label>File:</label>
                         </div>
                     </div>
                     <div className="row">
