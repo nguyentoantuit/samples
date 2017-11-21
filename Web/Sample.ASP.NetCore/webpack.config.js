@@ -30,8 +30,8 @@ module.exports = (env) => {
         entry: { 'main-client': './ClientApp/boot-client.tsx' },
         module: {
             rules: [
-                { test: /\.css$/, use: ExtractTextPlugin.extract({ use: isDevBuild ? 'css-loader' : 'css-loader?minimize' }) },
                 { test: /\.scss$/, loader: 'style-loader!css-loader!sass-loader' },
+                { test: /\.css$/, use: ExtractTextPlugin.extract({ use: isDevBuild ? 'css-loader' : 'css-loader?minimize' }) }
             ]
         },
         output: { path: path.join(__dirname, clientBundleOutputDir) },
@@ -48,9 +48,9 @@ module.exports = (env) => {
                 moduleFilenameTemplate: path.relative(clientBundleOutputDir, '[resourcePath]') // Point sourcemap entries to the original file locations on disk
             })
         ] : [
-            // Plugins that apply in production builds only
-            new webpack.optimize.UglifyJsPlugin()
-        ])
+                // Plugins that apply in production builds only
+                new webpack.optimize.UglifyJsPlugin()
+            ])
     });
 
     // Configuration for server-side (prerendering) bundle suitable for running in Node
@@ -73,5 +73,5 @@ module.exports = (env) => {
         devtool: 'inline-source-map'
     });
 
-    return [clientBundleConfig, serverBundleConfig];
+    return [clientBundleConfig/*, serverBundleConfig*/];
 };

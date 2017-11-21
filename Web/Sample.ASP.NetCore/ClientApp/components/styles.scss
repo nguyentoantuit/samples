@@ -1,1 +1,17 @@
-﻿
+body {
+    .file-picker {
+        margin-top: 20px;
+    }
+
+    .rejected-file {
+        input[type="text"] {
+            border: 1px solid red;
+        }
+    }
+
+    .accepted-file {
+        input[type="text"] {
+            border: 1px solid green;
+        }
+    }
+}
