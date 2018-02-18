@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Sample.ASP.Web.Configuration;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -40,6 +41,9 @@ namespace Sample.ASP.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.Configure<AppSettingOptions>(Configuration);
+            services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
+
             services.Configure<RequestLocalizationOptions>(opts =>
             {
                 opts.DefaultRequestCulture = LocalizationOptions.DefaultRequestCulture;

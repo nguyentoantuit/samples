@@ -10,9 +10,17 @@ namespace Sample.ASP.Web
             BuildWebHost(args).Run();
         }
 
-        public static IWebHost BuildWebHost(string[] args) =>
-            WebHost.CreateDefaultBuilder(args)
+        public static IWebHost BuildWebHost(string[] args)
+        {
+
+            return WebHost.CreateDefaultBuilder(args)
+                .ConfigureAppConfiguration((context, builder) =>
+                {
+                    var env = context.HostingEnvironment;
+                    var envName = env.EnvironmentName;
+                })
                 .UseStartup<Startup>()
                 .Build();
+        }
     }
 }
