@@ -4,7 +4,11 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using NLog.Extensions.Logging;
+using NLog.Web;
 using Sample.ASP.Web.Configuration;
+using Sample.ASP.Web.Services;
 using System.Collections.Generic;
 using System.Globalization;
 
@@ -52,11 +56,18 @@ namespace Sample.ASP.Web
             });
             services.AddMvc()
                 .AddViewLocalization(options => options.ResourcesPath = "Resources");
+
+            services.AddLogging((config) => config.SetMinimumLevel(LogLevel.Trace));
+            services.AddScoped<IResourceService, ResourceService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            env.ConfigureNLog("nlog.config");
+            loggerFactory.AddNLog();
+            app.AddNLogWeb();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
