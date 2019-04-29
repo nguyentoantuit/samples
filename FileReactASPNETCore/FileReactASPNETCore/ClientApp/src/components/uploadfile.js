@@ -1,9 +1,9 @@
-﻿import React, { Component } from 'react';
+﻿import React, { Component, Fragment } from 'react';
 
 export class UploadFile extends Component {
     constructor(props) {
         super(props);
-        this.state = { files: null }
+        this.state = { files: null, result: null }
 
         this.handleFileChange = this.handleFileChange.bind(this);
         this._handleSubmit = this._handleSubmit.bind(this);
@@ -16,10 +16,18 @@ export class UploadFile extends Component {
         for (let i = 0; i < this.state.files.length; i++) {
             formData.append('files', this.state.files[i]);
         }
-        fetch('/api/files', {
+
+        let url = event.target.value === 'Use Binding' ? '/api/files/binding' : '/api/files/streaming';
+
+        fetch(url, {
             method: 'POST',
             body: formData
-        }).then();
+        }).then(r => r.json()).then(result => {
+
+            let state = { ...this.state };
+            state.result = result;
+            this.setState(state);
+        });
         return false;
     }
 
@@ -29,10 +37,18 @@ export class UploadFile extends Component {
 
     render() {
         return (
-            <form>
-                <input type="file" multiple={true} name="pic" onChange={this.handleFileChange} />
-                <input type="submit" onClick={this._handleSubmit} />
-            </form>
+            <Fragment>
+                <form>
+                    <div><input type="file" multiple={true} name="pic" onChange={this.handleFileChange} /></div>
+                    <br />
+                    <div><input type="submit" value="Use Binding" onClick={this._handleSubmit} /></div>
+                    <br />
+                    <div><input type="submit" value="Use Streaming" onClick={this._handleSubmit} /></div>
+                </form>
+                <div>
+                    {this.state.result && this.state.result.split("\r\n").map(x => <p>{x}</p>)}
+                </div>
+            </Fragment>
         );
     }
 }
