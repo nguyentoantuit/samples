@@ -251,3 +251,6 @@ ModelManifest.xml
 #Umbraco as a Service
 [Uu]aa[Ss].cmd
 Kolekto.Huur.Web/
+
+#IDE
+.idea/
